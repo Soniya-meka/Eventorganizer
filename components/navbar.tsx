@@ -43,14 +43,22 @@ export function Navbar() {
             className="flex items-center gap-3"
             whileHover={{ scale: 1.05 }}
           >
-            <img 
-              src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/images_munif0" 
-              alt="BNG Logo" 
-              className="w-10 h-10 object-contain"
-            />
+            <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#D4AF37]/30 shadow-[0_0_20px_rgba(212,175,55,0.3)] bg-white flex items-center justify-center group-hover:border-[#D4AF37]/60 transition-all duration-300">
+              <img 
+                src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/logo_d2ksiz" 
+                alt="BNG" 
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  (e.target as HTMLImageElement).parentElement!.style.background = '#0a0a0a';
+                }}
+              />
+              <span className="absolute inset-0 flex items-center justify-center font-serif font-bold text-[#D4AF37] text-xs pointer-events-none group-hover:scale-110 transition-transform">BNG</span>
+            </div>
+
             <div className="flex flex-col">
-              <span className="font-serif text-2xl font-bold gold-text leading-none">BNG</span>
-              <span className="hidden sm:block text-[10px] text-[#D4AF37]/80 font-light tracking-[3px] uppercase mt-1">
+              <span className="font-serif text-xl font-bold gold-text leading-tight tracking-wide">BNG</span>
+              <span className="hidden sm:block text-[8px] text-[#D4AF37]/80 font-light tracking-[2px] uppercase">
                 Event Planners
               </span>
             </div>
@@ -111,7 +119,14 @@ export function Navbar() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#D4AF37]/20"
           >
-            <div className="px-4 py-6 flex flex-col gap-4">
+            <div className="px-4 py-8 flex flex-col gap-6 items-center">
+              <div className="mb-4">
+                <img 
+                  src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/logo_d2ksiz" 
+                  alt="BNG Logo" 
+                  className="w-24 h-24 object-contain rounded-full shadow-[0_0_30px_rgba(212,175,55,0.4)]"
+                />
+              </div>
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}

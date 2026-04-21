@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -57,31 +57,57 @@ function ParticlesBackground() {
 }
 
 export function Hero() {
+  const images = [
+    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG_20260302_225735_rbghr5",
+    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260127-WA0092_roenl9",
+    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG_20251126_043628_iutcfo",
+    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260306-WA0020_ostpe3",
+    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260223-WA0054_q1ncsm"
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
   return (
     <section id="hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-32">
-      {/* Background Image with Overlay */}
+      {/* Background Image Slider */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG_20260302_225735_rbghr5" 
-          alt="Grand Mandap Backdrop" 
-          className="w-full h-full object-cover scale-105 opacity-50"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#D4AF37]/5 to-[#0a0a0a] z-0" />
-        <div className="absolute inset-0 bg-[#D4AF37]/10 mix-blend-color z-0" />
+        <div className="relative w-full h-full">
+          <AnimatePresence mode="wait">
+            <motion.img 
+              key={currentIndex}
+              src={images[currentIndex]} 
+              alt="Event Background" 
+              className="absolute inset-0 w-full h-full object-cover"
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 0.5, scale: 1.05 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+            />
+          </AnimatePresence>
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#D4AF37]/5 to-[#0a0a0a] z-1" />
+        <div className="absolute inset-0 bg-[#D4AF37]/10 mix-blend-color z-1" />
       </div>
       
       {/* Decorative Glows */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-[150px] z-0" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[150px] z-0" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-[150px] z-[2]" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-[150px] z-[2]" />
       
       {/* Particles */}
-      <div className="absolute inset-0 z-1 pointer-events-none">
+      <div className="absolute inset-0 z-[3] pointer-events-none">
         <ParticlesBackground />
       </div>
       
       {/* Grid Pattern */}
       <div 
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.03] z-[1]"
         style={{
           backgroundImage: `linear-gradient(#D4AF37 1px, transparent 1px), linear-gradient(90deg, #D4AF37 1px, transparent 1px)`,
           backgroundSize: '50px 50px'
@@ -94,23 +120,15 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/5 backdrop-blur-sm"
-          >
-            <Sparkles className="w-4 h-4 text-[#D4AF37]" />
-            <span className="text-sm text-[#D4AF37] font-medium">Premium Event Planning in Vijayawada</span>
-          </motion.div>
+
+
 
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-tight mb-6"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-8"
           >
             <span className="text-foreground">Make Every</span>
             <br />

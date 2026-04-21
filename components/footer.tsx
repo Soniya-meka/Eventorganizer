@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { Instagram, Facebook, Youtube, Phone, MapPin, Heart } from "lucide-react";
 
 const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Instagram, href: "https://www.instagram.com/bng__events?igsh=ZGc5czhteWdnOHh3", label: "Instagram" },
   { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  { icon: Youtube, href: "https://youtube.com/@bngeventmanagement?si=veFVdermylEhm6zh", label: "YouTube" },
 ];
 
 const quickLinks = [
