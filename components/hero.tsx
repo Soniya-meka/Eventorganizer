@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Sparkles, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -57,40 +57,21 @@ function ParticlesBackground() {
 }
 
 export function Hero() {
-  const images = [
-    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG_20260302_225735_rbghr5",
-    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260127-WA0092_roenl9",
-    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG_20251126_043628_iutcfo",
-    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260306-WA0020_ostpe3",
-    "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260223-WA0054_q1ncsm"
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [images.length]);
+  const heroImage = "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/image_iowpao";
 
   return (
-    <section id="hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-32">
-      {/* Background Image Slider */}
+    <section id="hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-[#0a0a0a] pt-48">
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <div className="relative w-full h-full">
-          <AnimatePresence mode="wait">
-            <motion.img 
-              key={currentIndex}
-              src={images[currentIndex]} 
-              alt="Event Background" 
-              className="absolute inset-0 w-full h-full object-cover"
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 0.5, scale: 1.05 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 2, ease: "easeInOut" }}
-            />
-          </AnimatePresence>
+          <motion.img 
+            src={heroImage} 
+            alt="Event Background" 
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 0.5, scale: 1.05 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+          />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-[#D4AF37]/5 to-[#0a0a0a] z-1" />
         <div className="absolute inset-0 bg-[#D4AF37]/10 mix-blend-color z-1" />
@@ -114,7 +95,7 @@ export function Hero() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center mt-12">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
