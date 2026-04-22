@@ -53,11 +53,9 @@ export function Navbar() {
                   (e.target as HTMLImageElement).parentElement!.style.background = '#0a0a0a';
                 }}
               />
-              <span className="absolute inset-0 flex items-center justify-center font-serif font-bold text-[#D4AF37] text-xs pointer-events-none group-hover:scale-110 transition-transform">BNG</span>
             </div>
 
             <div className="flex flex-col">
-              <span className="font-serif text-xl font-bold gold-text leading-tight tracking-wide">BNG</span>
               <span className="hidden sm:block text-[8px] text-[#D4AF37]/80 font-light tracking-[2px] uppercase">
                 Event Planners
               </span>
