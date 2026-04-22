@@ -45,7 +45,7 @@ export function Navbar() {
           >
             <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#D4AF37]/30 shadow-[0_0_20px_rgba(212,175,55,0.3)] bg-white flex items-center justify-center group-hover:border-[#D4AF37]/60 transition-all duration-300">
               <img 
-                src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/logo_d2ksiz" 
+                src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/bng_ycsf0l" 
                 alt="BNG" 
                 className="w-full h-full object-contain"
                 onError={(e) => {
@@ -55,12 +55,7 @@ export function Navbar() {
               />
             </div>
 
-            <div className="flex flex-col">
-              <span className="hidden sm:block text-[8px] text-[#D4AF37]/80 font-light tracking-[2px] uppercase">
-                Event Planners
-              </span>
-            </div>
-          </motion.a>
+           </motion.a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -120,7 +115,7 @@ export function Navbar() {
             <div className="px-4 py-8 flex flex-col gap-6 items-center">
               <div className="mb-4">
                 <img 
-                  src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/logo_d2ksiz" 
+                  src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/bng_ycsf0l" 
                   alt="BNG Logo" 
                   className="w-24 h-24 object-contain rounded-full shadow-[0_0_30px_rgba(212,175,55,0.4)]"
                 />

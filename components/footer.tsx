@@ -44,7 +44,6 @@ export function Footer() {
                 whileHover={{ scale: 1.05 }}
               >
                 <span className="font-serif text-3xl font-bold gold-text">BNG</span>
-                <span className="block text-sm text-[#D4AF37]/60 mt-1">Event Planners</span>
               </motion.a>
               <p className="text-foreground/50 text-sm leading-relaxed mb-6">
                 Creating unforgettable celebrations with premium planning and exquisite decorations in Vijayawada.
@@ -100,9 +99,14 @@ export function Footer() {
               <div className="space-y-4">
                 <div className="flex gap-3">
                   <MapPin className="w-5 h-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
-                  <p className="text-foreground/50 text-sm">
-                    Benz Circle, Vijayawada, Andhra Pradesh 520008
-                  </p>
+                  <a 
+                    href="https://www.google.com/maps/place/BNG+Event's/@16.5019776,80.6749158,17z/data=!3m1!4b1!4m6!3m5!1s0x3a35fbc2f79cd5d5:0x45926dbf688c0c5b!8m2!3d16.5019776!4d80.6749158!16s%2Fg%2F11z54py3hf?entry=ttu&g_ep=EgoyMDI2MDQyMC4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground/50 hover:text-[#D4AF37] text-sm transition-colors"
+                  >
+                    2nd Rd, Sanath Nagar, Vijayawada, Andhra Pradesh 520007
+                  </a>
                 </div>
                 <div className="flex gap-3">
                   <Phone className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />

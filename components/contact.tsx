@@ -9,8 +9,8 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Our Location",
-    content: "Polyclinic Road, 1st Lane, Vijayawada, AP 520008",
-    link: "https://share.google/Xr2Fd0nchJ5NvUA8s",
+    content: "2nd Rd, Sanath Nagar, Vijayawada, Andhra Pradesh 520007",
+    link: "https://www.google.com/maps/place/BNG+Event's/@16.5019776,80.6749158,17z/data=!3m1!4b1!4m6!3m5!1s0x3a35fbc2f79cd5d5:0x45926dbf688c0c5b!8m2!3d16.5019776!4d80.6749158!16s%2Fg%2F11z54py3hf?entry=ttu&g_ep=EgoyMDI2MDQyMC4wIKXMDSoASAFQAw%3D%3D",
   },
   {
     icon: Phone,
@@ -21,8 +21,8 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    content: "info@bngeventplanners.com",
-    link: "mailto:info@bngeventplanners.com",
+    content: "bngeventmanagement@gmail.com",
+    link: "mailto:bngeventmanagement@gmail.com",
   },
   {
     icon: Clock,
@@ -127,7 +127,7 @@ export function Contact() {
 
             {/* Map Card */}
             <motion.a
-              href="https://share.google/Xr2Fd0nchJ5NvUA8s"
+              href="https://www.google.com/maps/place/BNG+Event's/@16.5019776,80.6749158,17z/data=!3m1!4b1!4m6!3m5!1s0x3a35fbc2f79cd5d5:0x45926dbf688c0c5b!8m2!3d16.5019776!4d80.6749158!16s%2Fg%2F11z54py3hf?entry=ttu&g_ep=EgoyMDI2MDQyMC4wIKXMDSoASAFQAw%3D%3D"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 20 }}

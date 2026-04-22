@@ -64,14 +64,6 @@ export function LoadingScreen() {
             </div>
 
             {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-4 text-foreground/40 text-sm tracking-widest uppercase"
-            >
-              Event Planners
-            </motion.p>
           </div>
         </motion.div>
       )}
