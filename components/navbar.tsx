@@ -107,42 +107,68 @@ export function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#0a0a0a]/95 backdrop-blur-xl border-t border-[#D4AF37]/20"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="md:hidden fixed inset-x-0 top-20 bottom-0 z-40 bg-[#0a0a0a]/98 backdrop-blur-2xl border-t border-[#D4AF37]/20 overflow-y-auto"
           >
-            <div className="px-4 py-8 flex flex-col gap-6 items-center">
-              <div className="mb-4">
+            <div className="min-h-full px-6 py-10 flex flex-col gap-8 items-center justify-start">
+              <motion.div 
+                className="mb-8"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.1 }}
+              >
                 <img 
                   src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/bng_ycsf0l" 
                   alt="BNG Logo" 
-                  className="w-24 h-24 object-contain rounded-full shadow-[0_0_30px_rgba(212,175,55,0.4)]"
+                  className="w-24 h-24 object-contain rounded-full shadow-[0_0_30px_rgba(212,175,55,0.4)] border border-[#D4AF37]/30"
                 />
+              </motion.div>
+              
+              <div className="flex flex-col items-center gap-6 w-full">
+                {navLinks.map((link, index) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 + 0.2 }}
+                    className="text-2xl font-serif text-foreground/80 hover:text-[#D4AF37] transition-colors py-2 tracking-wide"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </motion.a>
+                ))}
               </div>
-              {navLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-lg font-medium text-foreground/80 hover:text-[#D4AF37] transition-colors py-2"
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="mt-8 flex flex-col gap-4 w-full max-w-xs"
+              >
+                <a
+                  href="tel:+919182779142"
+                  className="flex items-center justify-center gap-3 py-4 text-[#D4AF37] border border-[#D4AF37]/30 rounded-full font-medium"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {link.name}
-                </motion.a>
-              ))}
-              <motion.a
-                href="#contact"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-                className="mt-4 px-6 py-3 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-semibold text-center rounded-full"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Book Now
-              </motion.a>
+                  <Phone className="w-5 h-5" />
+                  +91 9182779142
+                </a>
+                <a
+                  href="#contact"
+                  className="py-4 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-bold text-center rounded-full shadow-[0_10px_20px_rgba(212,175,55,0.3)]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Book Now
+                </a>
+              </motion.div>
+
+              <div className="mt-auto pt-10 text-foreground/30 text-xs">
+                © 2026 BNG Event Planners
+              </div>
             </div>
           </motion.div>
         )}

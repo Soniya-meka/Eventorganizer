@@ -24,7 +24,7 @@ export function WhatsAppButton() {
 
       {/* Facebook Button */}
       <motion.a
-        href="https://www.facebook.com/aicaevents/"
+        href="https://www.facebook.com/share/1CfDwRYdDv/"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center w-12 h-12 rounded-full bg-[#1877f2] text-white shadow-lg hover:shadow-[0_0_20px_rgba(24,119,242,0.4)] transition-all duration-300"

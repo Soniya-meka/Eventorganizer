@@ -5,7 +5,7 @@ import { Instagram, Facebook, Youtube, Phone, MapPin, Heart } from "lucide-react
 
 const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/bng__events?igsh=ZGc5czhteWdnOHh3", label: "Instagram" },
-  { icon: Facebook, href: "#", label: "Facebook" },
+  { icon: Facebook, href: "https://www.facebook.com/share/1CfDwRYdDv/", label: "Facebook" },
   { icon: Youtube, href: "https://youtube.com/@bngeventmanagement?si=veFVdermylEhm6zh", label: "YouTube" },
 ];
 
