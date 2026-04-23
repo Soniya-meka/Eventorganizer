@@ -13,7 +13,6 @@ const galleryItems = [
   { id: 5, title: "Elite Floral Setup", category: "Premium", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260223-WA0054_q1ncsm" },
   { id: 6, title: "Luxury Reception", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG20260403183705_zxdilw" },
   { id: 7, title: "Traditional Decor", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG_20251026_074109_rfjpcs.jpg" },
-  { id: 8, title: "Wedding Setup", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20260301-WA0050_uiekn3.jpg" },
   { id: 9, title: "Stage Decoration", category: "Stage Decor", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20251107-WA0042_bh09v3.jpg" },
   { id: 10, title: "Floral Arrangement", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20251112-WA0033_gxjfar.jpg" },
   { id: 11, title: "Grand Entrance", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20260119-WA0251_jnveb1.jpg" },
