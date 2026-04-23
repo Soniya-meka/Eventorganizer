@@ -114,7 +114,7 @@ export function Gallery() {
             </motion.div>
           ) : (
             <motion.div 
-              className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0a]/90 backdrop-blur-3xl overflow-hidden"
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0a0a] overflow-hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -145,12 +145,12 @@ export function Gallery() {
               </div>
 
               {/* Main Focused Item */}
-              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-4 md:p-12">
+              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-0 md:p-12">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentIndex}
                     layoutId={`card-${activeItems[currentIndex].id}`}
-                    className="relative w-full max-w-7xl h-full max-h-[80vh] rounded-3xl overflow-hidden border border-white/10 shadow-[0_0_150px_rgba(0,0,0,0.8)] bg-black/20"
+                    className="relative w-full md:max-w-7xl h-full md:max-h-[80vh] md:rounded-3xl overflow-hidden border-y md:border border-white/10 shadow-[0_0_150px_rgba(0,0,0,0.8)] bg-black/20"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}
@@ -159,7 +159,7 @@ export function Gallery() {
                     <img 
                       src={activeItems[currentIndex].image} 
                       alt={activeItems[currentIndex].title}
-                      className="w-full h-full object-contain"
+                      className="w-full h-full object-contain md:object-cover"
                     />
                     
                     {/* Hologram Lines Effect */}
@@ -167,36 +167,33 @@ export function Gallery() {
                   </motion.div>
                 </AnimatePresence>
 
-
-
-
                 {/* Back Button */}
                 <motion.button
                   onClick={() => setFocusId(null)}
-                  className="absolute top-0 right-0 p-4 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 transition-colors z-[60]"
+                  className="absolute top-4 right-4 p-3 rounded-full bg-black/50 hover:bg-[#D4AF37] text-white border border-white/10 transition-colors z-[110]"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  <X className="w-8 h-8" />
+                  <X className="w-6 h-6 md:w-8 md:h-8" />
                 </motion.button>
 
-                {/* Navigation Controls (Apple Vision style) */}
-                <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-between px-8 md:px-20 z-[60] pointer-events-none">
+                {/* Navigation Controls */}
+                <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-between px-4 md:px-20 z-[110] pointer-events-none">
                   <motion.button
                     onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                    className="p-5 rounded-full bg-white/10 hover:bg-[#D4AF37] text-white hover:text-black border border-white/20 backdrop-blur-2xl transition-all pointer-events-auto shadow-2xl"
+                    className="p-3 md:p-5 rounded-full bg-black/40 md:bg-white/10 hover:bg-[#D4AF37] text-white border border-white/20 backdrop-blur-xl transition-all pointer-events-auto"
                     whileHover={{ x: -10, scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <ChevronLeft className="w-8 h-8 md:w-12 md:h-12" />
+                    <ChevronLeft className="w-6 h-6 md:w-12 md:h-12" />
                   </motion.button>
                   <motion.button
                     onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                    className="p-5 rounded-full bg-white/10 hover:bg-[#D4AF37] text-white hover:text-black border border-white/20 backdrop-blur-2xl transition-all pointer-events-auto shadow-2xl"
+                    className="p-3 md:p-5 rounded-full bg-black/40 md:bg-white/10 hover:bg-[#D4AF37] text-white border border-white/20 backdrop-blur-xl transition-all pointer-events-auto"
                     whileHover={{ x: 10, scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                   >
-                    <ChevronRight className="w-8 h-8 md:w-12 md:h-12" />
+                    <ChevronRight className="w-6 h-6 md:w-12 md:h-12" />
                   </motion.button>
                 </div>
               </div>
