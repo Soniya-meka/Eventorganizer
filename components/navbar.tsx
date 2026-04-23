@@ -103,76 +103,82 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="md:hidden fixed inset-x-0 top-20 bottom-0 z-40 bg-[#0a0a0a]/98 backdrop-blur-2xl border-t border-[#D4AF37]/20 overflow-y-auto"
-          >
-            <div className="min-h-full px-6 py-10 flex flex-col gap-8 items-center justify-start">
-              <motion.div 
-                className="mb-8"
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.1 }}
-              >
-                <img 
-                  src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/bng_ycsf0l" 
-                  alt="BNG Logo" 
-                  className="w-24 h-24 object-contain rounded-full shadow-[0_0_30px_rgba(212,175,55,0.4)] border border-[#D4AF37]/30"
-                />
-              </motion.div>
-              
-              <div className="flex flex-col items-center gap-6 w-full">
-                {navLinks.map((link, index) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 + 0.2 }}
-                    className="text-2xl font-serif text-foreground/80 hover:text-[#D4AF37] transition-colors py-2 tracking-wide"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </motion.a>
-                ))}
-              </div>
+    </motion.nav>
+    
+    {/* Mobile Menu - Moved outside motion.nav to avoid transform context issues */}
+    <AnimatePresence>
+      {isMobileMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="md:hidden fixed inset-0 z-[60] bg-[#0a0a0a]"
+        >
+          {/* Mobile Menu Header */}
+          <div className="flex h-20 items-center justify-between px-4 sm:px-6 border-b border-[#D4AF37]/20">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border border-[#D4AF37]/30 bg-white flex items-center justify-center">
+              <img 
+                src="https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/bng_ycsf0l" 
+                alt="BNG" 
+                className="w-full h-full object-contain"
+              />
+            </div>
+            <button
+              className="p-2 text-[#D4AF37]"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <X className="w-8 h-8" />
+            </button>
+          </div>
 
-              <motion.div
+          {/* Menu Content */}
+          <div className="h-[calc(100vh-80px)] overflow-y-auto px-6 py-10 flex flex-col items-center justify-between">
+            <div className="flex flex-col items-center gap-8 w-full mt-4">
+              {navLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="text-3xl font-serif text-foreground/90 hover:text-[#D4AF37] transition-colors py-2 tracking-wide"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </motion.a>
+              ))}
+            </div>
+
+            <div className="w-full max-w-xs flex flex-col gap-4 mb-10">
+              <motion.a
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                href="tel:+919182779142"
+                className="flex items-center justify-center gap-3 py-4 text-[#D4AF37] border border-[#D4AF37]/30 rounded-full font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Phone className="w-5 h-5" />
+                +91 9182779142
+              </motion.a>
+              <motion.a
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="mt-8 flex flex-col gap-4 w-full max-w-xs"
+                href="#contact"
+                className="py-4 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-bold text-center rounded-full shadow-[0_10px_30px_rgba(212,175,55,0.4)]"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
-                <a
-                  href="tel:+919182779142"
-                  className="flex items-center justify-center gap-3 py-4 text-[#D4AF37] border border-[#D4AF37]/30 rounded-full font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <Phone className="w-5 h-5" />
-                  +91 9182779142
-                </a>
-                <a
-                  href="#contact"
-                  className="py-4 bg-gradient-to-r from-[#D4AF37] to-[#B8860B] text-[#0a0a0a] font-bold text-center rounded-full shadow-[0_10px_20px_rgba(212,175,55,0.3)]"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Book Now
-                </a>
-              </motion.div>
-
-              <div className="mt-auto pt-10 text-foreground/30 text-xs">
+                Book Now
+              </motion.a>
+              <div className="mt-6 text-center text-foreground/30 text-xs">
                 © 2026 BNG Event Planners
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 }
