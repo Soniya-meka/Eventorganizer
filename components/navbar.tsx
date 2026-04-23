@@ -25,11 +25,12 @@ export function Navbar() {
   }, []);
 
   return (
+    <>
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 ${
         isScrolled
           ? "bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#D4AF37]/20"
           : "bg-transparent"
