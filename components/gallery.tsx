@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import React, { useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
 
 const galleryItems = [
   { id: 1, title: "Grand Temple Stage", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG_20260302_225735_rbghr5" },
@@ -11,215 +12,121 @@ const galleryItems = [
   { id: 4, title: "Grand Celebration Hall", category: "Venue", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260306-WA0020_ostpe3" },
   { id: 5, title: "Elite Floral Setup", category: "Premium", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG-20260223-WA0054_q1ncsm" },
   { id: 6, title: "Luxury Reception", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/f_auto,q_auto/IMG20260403183705_zxdilw" },
+  { id: 7, title: "Traditional Decor", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG_20251026_074109_rfjpcs.jpg" },
+  { id: 8, title: "Wedding Setup", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20260301-WA0050_uiekn3.jpg" },
+  { id: 9, title: "Stage Decoration", category: "Stage Decor", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20251107-WA0042_bh09v3.jpg" },
+  { id: 10, title: "Floral Arrangement", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20251112-WA0033_gxjfar.jpg" },
+  { id: 11, title: "Grand Entrance", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20260119-WA0251_jnveb1.jpg" },
+  { id: 12, title: "Night Event Decor", category: "Premium Lighting", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922054/IMG-20260201-WA0007_efhpt0.jpg" },
+  { id: 13, title: "Classic Mandap", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922053/IMG-20251117-WA0001_yotxer.jpg" },
+  { id: 14, title: "Luxury Backdrop", category: "Modern", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922053/IMG-20260101-WA0077_zg0fhy.jpg" },
+  { id: 15, title: "Elite Stage Decor", category: "Luxury", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922053/IMG-20251122-WA0011_e5r1ig.jpg" },
+  { id: 16, title: "Wedding Celebration", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922053/IMG-20251010-WA0037_hyqucx.jpg" },
+  { id: 17, title: "Royal Entry Decor", category: "Premium", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922053/IMG_20260301_141339_vyzas3.jpg" },
+  { id: 18, title: "Reception Stage", category: "Modern", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922053/IMG-20260129-WA0012_igudti.jpg" },
+  { id: 19, title: "Floral Pathway", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922053/IMG-20260131-WA0008_iylnne.jpg" },
+  { id: 20, title: "Grand Hall Decor", category: "Venue", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922052/IMG-20251020-WA0055_kitosi.jpg" },
+  { id: 21, title: "Wedding Mandap", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922052/IMG-20260324-WA0127_knqclg.jpg" },
+  { id: 22, title: "Elegant Setup", category: "Modern", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922052/IMG-20260205-WA0024_bq4olg.jpg" },
+  { id: 23, title: "Luxury Wedding", category: "Wedding", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922052/IMG-20251024-WA0056_bg2me8.jpg" },
+  { id: 24, title: "Premium Backdrop", category: "Luxury", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922052/IMG-20260130-WA0013_hvctmg.jpg" },
+  { id: 25, title: "Lighting Showcase", category: "Premium Lighting", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922051/IMG-20251225-WA0001_o7oh9m.jpg" },
+  { id: 26, title: "Event Decoration", category: "Traditional", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922051/IMG-20251022-WA0017_tjvpf4.jpg" },
+  { id: 27, title: "Grand Venue", category: "Venue", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922051/IMG-20251128-WA0052_tof0k5.jpg" },
+  { id: 28, title: "Modern Stage", category: "Modern", image: "https://res.cloudinary.com/dg5ct7fys/image/upload/v1776922051/IMG-20260306-WA0020_hjcdcz.jpg" },
 ];
 
 export function Gallery() {
-  const [focusId, setFocusId] = useState<number | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    loop: true,
+    dragFree: false,
+    containScroll: "trimSnaps"
+  });
 
-  const activeItems = galleryItems;
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % activeItems.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + activeItems.length) % activeItems.length);
-  };
-
-  useEffect(() => {
-    if (focusId !== null) {
-      const idx = activeItems.findIndex(item => item.id === focusId);
-      if (idx !== -1) setCurrentIndex(idx);
-    }
-  }, [focusId]);
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   return (
-    <section id="gallery" className="relative min-h-screen py-24 bg-[#0a0a0a] overflow-hidden flex flex-col items-center justify-center">
-      {/* Dynamic Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#D4AF3715,transparent_70%)]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[120px] animate-pulse" />
-      </div>
+    <section id="gallery" className="relative py-20 bg-[#0a0a0a] overflow-hidden">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <motion.span 
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-[#D4AF37] font-medium tracking-[0.2em] uppercase text-sm mb-4 block"
+          >
+            Our Masterpieces
+          </motion.span>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-6xl font-serif font-bold text-white mb-6"
+          >
+            Event <span className="gold-text">Gallery</span>
+          </motion.h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-[#D4AF37] to-transparent mx-auto rounded-full" />
+        </div>
 
-      <div className="relative z-10 w-full max-w-7xl px-4 text-center mb-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="inline-block px-4 py-1.5 rounded-full border border-blue-400/20 bg-blue-400/5 backdrop-blur-md mb-4"
-        >
-          <span className="text-xs font-bold tracking-[4px] uppercase text-blue-300">Immersive Experience</span>
-        </motion.div>
-        <h2 className="text-5xl md:text-7xl font-serif font-bold gold-text mb-4 tracking-tighter">Event Gallery</h2>
-        <p className="text-foreground/40 max-w-xl mx-auto font-light italic">Zero-gravity holographic showcase of our finest masterpieces</p>
-      </div>
-
-      {/* 3D Gallery Wall / AntiGravity Stage */}
-      <div className="relative w-full h-[600px] perspective-2000 flex items-center justify-center">
-        <AnimatePresence mode="wait">
-          {focusId === null ? (
-            <motion.div 
-              className="grid grid-cols-2 md:grid-cols-3 gap-6 p-8"
-              initial={{ opacity: 0, scale: 0.8, rotateX: 20 }}
-              animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-              exit={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {activeItems.map((item, idx) => (
-                <motion.div
-                  key={item.id}
-                  layoutId={`card-${item.id}`}
-                  onClick={() => setFocusId(item.id)}
-                  className="relative group cursor-pointer"
-                  whileHover={{ 
-                    y: -10, 
-                    rotateY: idx % 2 === 0 ? 5 : -5,
-                    scale: 1.05 
-                  }}
-                  style={{
-                    perspective: "1000px"
-                  }}
+        {/* Manual Slideshow Container */}
+        <div className="relative group">
+          <div className="overflow-hidden rounded-2xl md:rounded-[2rem] border border-[#D4AF37]/20 shadow-2xl" ref={emblaRef}>
+            <div className="flex touch-pan-y">
+              {galleryItems.map((item) => (
+                <div 
+                  key={item.id} 
+                  className="flex-[0_0_100%] min-w-0 relative h-[400px] md:h-[700px]"
                 >
-                  <motion.div
-                    className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-white/5 backdrop-blur-sm"
-                    animate={{
-                      y: [0, -15, 0],
-                    }}
-                    transition={{
-                      duration: 4 + idx,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-full h-[250px] object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-                      <div className="flex flex-col gap-1">
-                        <span className="text-[10px] text-blue-400 font-bold uppercase tracking-widest">{item.category}</span>
-                        <h4 className="text-white font-serif text-lg">{item.title}</h4>
-                      </div>
-                    </div>
-                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <div className="p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-                        <Maximize2 className="w-4 h-4 text-white" />
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div 
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0a0a0a] overflow-hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {/* Blurred Background Items */}
-              <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
-                {activeItems.map((item, idx) => (
-                  <motion.img
-                    key={`bg-${item.id}`}
+                  <img
                     src={item.image}
-                    className="absolute w-64 h-64 object-cover rounded-full blur-[80px]"
-                    style={{
-                      left: `${(idx * 25) % 100}%`,
-                      top: `${(idx * 30) % 100}%`,
-                    }}
-                    animate={{
-                      y: [0, 50, 0],
-                      x: [0, 30, 0],
-                      rotate: [0, 45, 0]
-                    }}
-                    transition={{
-                      duration: 10 + idx,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
                   />
-                ))}
-              </div>
-
-              {/* Main Focused Item */}
-              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center p-0 md:p-12">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentIndex}
-                    layoutId={`card-${activeItems[currentIndex].id}`}
-                    className="relative w-full md:max-w-7xl h-full md:max-h-[80vh] md:rounded-3xl overflow-hidden border-y md:border border-white/10 shadow-[0_0_150px_rgba(0,0,0,0.8)] bg-black/20"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    <img 
-                      src={activeItems[currentIndex].image} 
-                      alt={activeItems[currentIndex].title}
-                      className="w-full h-full object-contain md:object-cover"
-                    />
-                    
-                    {/* Hologram Lines Effect */}
-                    <div className="absolute inset-0 pointer-events-none opacity-10 bg-[repeating-linear-gradient(rgba(255,255,255,0.05)_0px,rgba(255,255,255,0.05)_1px,transparent_1px,transparent_4px)]" />
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* Back Button */}
-                <motion.button
-                  onClick={() => setFocusId(null)}
-                  className="absolute top-4 right-4 p-3 rounded-full bg-black/50 hover:bg-[#D4AF37] text-white border border-white/10 transition-colors z-[110]"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  <X className="w-6 h-6 md:w-8 md:h-8" />
-                </motion.button>
-
-                {/* Navigation Controls */}
-                <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex justify-between px-4 md:px-20 z-[110] pointer-events-none">
-                  <motion.button
-                    onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                    className="p-3 md:p-5 rounded-full bg-black/40 md:bg-white/10 hover:bg-[#D4AF37] text-white border border-white/20 backdrop-blur-xl transition-all pointer-events-auto"
-                    whileHover={{ x: -10, scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronLeft className="w-6 h-6 md:w-12 md:h-12" />
-                  </motion.button>
-                  <motion.button
-                    onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                    className="p-3 md:p-5 rounded-full bg-black/40 md:bg-white/10 hover:bg-[#D4AF37] text-white border border-white/20 backdrop-blur-xl transition-all pointer-events-auto"
-                    whileHover={{ x: 10, scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronRight className="w-6 h-6 md:w-12 md:h-12" />
-                  </motion.button>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8 md:p-16">
+                    <div className="max-w-xl">
+                      <span className="text-[#D4AF37] text-xs md:text-sm font-bold uppercase tracking-widest mb-2 block">
+                        {item.category}
+                      </span>
+                      <h3 className="text-2xl md:text-4xl font-serif font-bold text-white">
+                        {item.title}
+                      </h3>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
 
-              {/* Progress Indicator */}
-              <div className="absolute bottom-12 flex gap-3 z-[60]">
-                {activeItems.map((_, idx) => (
-                  <div 
-                    key={idx}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      currentIndex === idx ? "w-12 bg-[#D4AF37]" : "w-6 bg-white/20"
-                    }`}
-                    style={{
-                      boxShadow: currentIndex === idx ? "0 0 15px #D4AF37" : "none"
-                    }}
-                  />
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+          {/* Navigation Buttons */}
+          <button
+            onClick={scrollPrev}
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-[#0a0a0a] transition-all duration-300 z-10 group/btn"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 group-hover/btn:-translate-x-1 transition-transform" />
+          </button>
+          <button
+            onClick={scrollNext}
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-10 h-10 md:w-16 md:h-16 rounded-full bg-black/40 backdrop-blur-md border border-white/10 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:text-[#0a0a0a] transition-all duration-300 z-10 group/btn"
+            aria-label="Next image"
+          >
+            <ChevronRight className="w-6 h-6 md:w-8 md:h-8 group-hover/btn:translate-x-1 transition-transform" />
+          </button>
+        </div>
+
+        {/* Slide Counter / Instruction */}
+        <div className="mt-8 flex justify-center items-center gap-4">
+          <p className="text-foreground/40 text-sm font-light italic">
+            Slide or use buttons to browse all {galleryItems.length} masterpieces
+          </p>
+        </div>
       </div>
-
-      {/* Ambient Neon Glows */}
-      <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-blue-500/5 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-blue-500/5 to-transparent pointer-events-none" />
     </section>
   );
 }
